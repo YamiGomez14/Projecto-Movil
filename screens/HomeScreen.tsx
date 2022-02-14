@@ -10,7 +10,7 @@ import {
 	StyleSheet,
 	Alert,
 	Image,
-	Platform
+	Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -71,8 +71,6 @@ const itemExamples = [
 	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
 	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
 	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	
-	
 ];
 
 function CategoryButton({ name, image }: { name: string; image: string }) {

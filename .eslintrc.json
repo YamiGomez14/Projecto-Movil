@@ -47,6 +47,9 @@
         ],
         "@typescript-eslint/no-non-null-assertion": "off",
         "react/function-component-definition": "off",
-        "react/no-unstable-nested-components": "off"
+        "react/no-unstable-nested-components": "off",
+        "react/jsx-props-no-spreading": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "global-require": "off"
     }
 }
