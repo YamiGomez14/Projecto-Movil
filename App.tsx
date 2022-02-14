@@ -63,7 +63,6 @@ export default function App() {
 	if (!isLoadingComplete) {
 		return null;
 	}
-	console.log(AppTheme);
 	return (
 		<SafeAreaProvider>
 			<ThemeProvider theme={AppTheme.colors}>

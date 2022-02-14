@@ -1,9 +1,17 @@
 import * as React from 'react';
 import { Button, View, Text } from 'react-native';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
-import { IconButton } from 'react-native-paper';
+import {
+	createDrawerNavigator,
+	DrawerContentScrollView,
+	DrawerItem,
+	DrawerItemList,
+} from '@react-navigation/drawer';
+import { Avatar, IconButton, Drawer, List } from 'react-native-paper';
+import { Center } from 'native-base';
 
 import HomeScreen from './HomeScreen';
+import Background from '../components/Background';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -18,43 +26,104 @@ function NotificationsScreen({ navigation }: any) {
 }
 function DrawerContent(props: any) {
 	return (
-		<DrawerContentScrollView {...props}>
-			<DrawerItemList {...props} />
-			<DrawerItem
-				label="Help"
-				onPress={() => console.log('https://mywebsite.com/help')}
-			/>
-		</DrawerContentScrollView>
-	)
+		<SafeAreaView
+			style={{
+				flex: 1,
+			}}
+		>
+			<Background />
+
+			<Center>
+				<Avatar.Image
+					size={150}
+					style={{
+						marginTop: 10,
+					}}
+					source={require('../assets/images/logo.png')}
+				/>
+			</Center>
+			<DrawerContentScrollView {...props}>
+				<DrawerItemList {...props} />
+				<DrawerItem
+					label="Help"
+					onPress={() => console.log('https://mywebsite.com/help')}
+					icon={({ size }) => (
+						<List.Icon
+							icon="help"
+							style={{
+								width: size,
+								height: size,
+							}}
+						/>
+					)}
+				/>
+			</DrawerContentScrollView>
+			<View>
+				<DrawerItem
+					label="Logout"
+					onPress={() => console.log('https://mywebsite.com/help')}
+					icon={({ size }) => (
+						<List.Icon
+							icon="exit-to-app"
+							style={{
+								width: size,
+								height: size,
+							}}
+						/>
+					)}
+				/>
+			</View>
+		</SafeAreaView>
+	);
 }
 
-const Drawer = createDrawerNavigator();
+const DrawerController = createDrawerNavigator();
 
 export default function IndexScreen() {
 	return (
-
-
-		<Drawer.Navigator
+		<DrawerController.Navigator
 			initialRouteName="Principal"
-			drawerContent={props=> <DrawerContent {...props}/>}
+			drawerContent={props => <DrawerContent {...props} />}
 			screenOptions={{
 				headerRight: () => <IconButton icon="cart-outline" />,
+				drawerLabelStyle: {
+					fontWeight: 'bold',
+				},
 			}}
 		>
-
-			<Drawer.Screen
+			<DrawerController.Screen
 				name="Principal"
 				options={{
+					drawerIcon: ({ size }) => (
+						<List.Icon
+							icon="home"
+							style={{
+								width: size,
+								height: size,
+							}}
+						/>
+					),
 					headerStyle: {
 						// backgroundColor: 'red',
 					},
 				}}
 				component={HomeScreen}
 			/>
-			<Drawer.Screen
+			<DrawerController.Screen
 				name="Car"
+				options={{
+					drawerIcon: ({ size }) => (
+						<List.Icon
+							icon="cart-outline"
+							style={{
+								width: size,
+								height: size,
+							}}
+						/>
+					),
+				}}
 				component={NotificationsScreen}
 			/>
-		</Drawer.Navigator>
+		</DrawerController.Navigator>
 	);
 }

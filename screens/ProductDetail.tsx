@@ -1,23 +1,16 @@
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { Button, Center, Heading } from 'native-base';
 import * as React from 'react';
-import { View, Text, StyleSheet,Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { Avatar, Paragraph } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import useSWR from 'swr';
 import AppTheme from '../theme';
 import { HomeStackParamList, Item, ItemContext } from './HomeScreen';
+import Background from '../components/Background';
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-	},
-	background: {
-		position: 'absolute',
-		left: 0,
-		right: 0,
-		bottom: 0,
-		top: 0,
 		flex: 1,
 	},
 });
@@ -36,10 +29,8 @@ function ProductScreen({
 	if (!data)
 		return (
 			<View style={{ flex: 1 }}>
-				<LinearGradient
-					colors={['#fce9e9', '#f4b4b4', '#e6a2a2']}
-					style={styles.background}
-				/>
+				<Background />
+
 				<Center>
 					<Paragraph>Loading...</Paragraph>
 				</Center>
@@ -47,10 +38,7 @@ function ProductScreen({
 		);
 	return (
 		<View style={styles.container}>
-			<LinearGradient
-				colors={['#fce9e9', '#f4b4b4', '#e6a2a2']}
-				style={styles.background}
-			/>
+			<Background />
 			<Center>
 				<Avatar.Image
 					source={{
@@ -61,15 +49,15 @@ function ProductScreen({
 						marginHorizontal: -10,
 						...Platform.select({
 							ios: {
-							marginTop: 30,
-							
+								marginTop: 30,
 							},
 							android: {
-								marginTop: 10
+								marginTop: 10,
 							},
 							default: {
-								marginTop: 5
-							}})
+								marginTop: 5,
+							},
+						}),
 					}}
 				/>
 			</Center>
@@ -81,12 +69,27 @@ function ProductScreen({
 					},
 				]}
 			>
-				<Heading>Pastel Dominicano de Frambrueza {data.id}</Heading>
-				<Text style={{ 
-					fontWeight: '400',
-					 color: 'gray',
-					
-					 }}>
+				<Heading
+					style={[
+						{
+							fontSize: 32,
+						},
+						Platform.OS === 'ios' && {
+							fontSize: 28,
+						},
+						Platform.OS === 'android' && {
+							fontSize: 32,
+						},
+					]}
+				>
+					Pastel Dominicano de Frambrueza {data.id}
+				</Heading>
+				<Text
+					style={{
+						fontWeight: '400',
+						color: 'gray',
+					}}
+				>
 					${data.price}
 				</Text>
 				<Paragraph>
