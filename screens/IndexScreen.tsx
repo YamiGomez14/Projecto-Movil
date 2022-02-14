@@ -1,34 +1,59 @@
 import * as React from 'react';
-import { Button, View } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import { Button, View, Text } from 'react-native';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
+import { IconButton } from 'react-native-paper';
 
-function HomeScreen({ navigation }:any) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        onPress={() => navigation.navigate('Notifications')}
-        title="Go to notifications"
-      />
-    </View>
-  );
+// import { createNativeStackNavigator as createDrawerNavigator  } from '@react-navigation/native-stack';
+import HomeScreen from './HomeScreen';
+
+function NotificationsScreen({ navigation }: any) {
+	return (
+		<View
+			style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+		>
+			<Button onPress={() => navigation.goBack()} title="Go back home" />
+		</View>
+	);
 }
-
-function NotificationsScreen({ navigation }:any) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
-  );
+function DrawerContent(props: any) {
+	return (
+		<DrawerContentScrollView {...props}>
+			<DrawerItemList {...props} />
+			<DrawerItem
+				label="Help"
+				onPress={() => console.log('https://mywebsite.com/help')}
+			/>
+		</DrawerContentScrollView>
+	)
 }
 
 const Drawer = createDrawerNavigator();
 
 export default function IndexScreen() {
-  return (
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
-      </Drawer.Navigator>
-  );
+	return (
+
+
+		<Drawer.Navigator
+			initialRouteName="Principal"
+			drawerContent={props=> <DrawerContent {...props}/>}
+			screenOptions={{
+				headerRight: () => <IconButton icon="cart-outline" />,
+			}}
+		>
+
+			<Drawer.Screen
+				name="Principal"
+				options={{
+					headerStyle: {
+						// backgroundColor: 'red',
+					},
+				}}
+				component={HomeScreen}
+			/>
+			<Drawer.Screen
+				name="Car"
+				component={NotificationsScreen}
+			/>
+		</Drawer.Navigator>
+	);
 }
