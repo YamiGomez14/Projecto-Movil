@@ -3,8 +3,9 @@ import { Button, View, Text } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { IconButton } from 'react-native-paper';
 
-// import { createNativeStackNavigator as createDrawerNavigator  } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
+
+
 
 function NotificationsScreen({ navigation }: any) {
 	return (
