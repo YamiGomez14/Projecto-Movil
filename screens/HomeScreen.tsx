@@ -1,8 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-	DrawerNavigationProp,
-	DrawerScreenProps,
-} from '@react-navigation/drawer';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 import * as React from 'react';
 import {
 	FlatList,
@@ -10,14 +7,12 @@ import {
 	StyleSheet,
 	Alert,
 	Image,
-	Platform,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from 'react-native-elements';
-import { Paragraph, Searchbar } from 'react-native-paper';
+import { List, Paragraph, Searchbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { Center, View } from 'native-base';
+import { Button, Center, View } from 'native-base';
 
 import ProductScreen from './ProductDetail';
 import AppTheme from '../theme';
@@ -51,26 +46,68 @@ export type Item = {
 	id: number;
 	src: string;
 	price: number;
+	desc: string;
 };
 
 export const ItemContext = React.createContext<Item[]>([]);
 const itemExamples = [
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
-	'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	{
+		id: 1,
+		src: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+		price: 20,
+		desc: 'hola mundo',
+	},
+	{
+		id: 1,
+		src: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+		price: 20,
+		desc: 'hola mundo',
+	},
+	{
+		id: 1,
+		src: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+		price: 20,
+		desc: 'hola mundo',
+	},
+	{
+		id: 1,
+		src: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+		price: 20,
+		desc: 'hola mundo',
+	},
+	{
+		id: 1,
+		src: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+		price: 20,
+		desc: 'hola mundo',
+	},
+	{
+		id: 1,
+		src: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+		price: 20,
+		desc: 'hola mundo',
+	},
+	{
+		id: 1,
+		src: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+		price: 20,
+		desc: 'hola mundo',
+	},
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
+	// 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/raspberry-pink-velvet-cake-1574437052.jpg?crop=1xw:0.8333333333333334xh;center,top&resize=480:*',
 ];
 
 function CategoryButton({ name, image }: { name: string; image: string }) {
@@ -128,7 +165,30 @@ function ProductItemComponent({ item }: { item: Item }) {
 					}}
 				/>
 				<Card.Divider />
+				<Card.Title>{item.desc}</Card.Title>
 				<Card.Title>Precio: {item.price}</Card.Title>
+				<Button>
+					<Paragraph
+						style={{
+							flex: 1,
+							fontSize: 20,
+							alignContent: 'center',
+							alignItems: 'center',
+							alignSelf: 'center',
+						}}
+					>
+						Agregar al{' '}
+						<List.Icon
+							icon="cart-outline"
+							style={{
+								alignSelf: 'center',
+								alignContent: 'center',
+								alignItems: 'center',
+								height: 20,
+							}}
+						/>
+					</Paragraph>
+				</Button>
 			</Card>
 		</TouchableOpacity>
 	);
@@ -209,11 +269,12 @@ const Stack = createNativeStackNavigator<HomeStackParamList>();
 function HomeController() {
 	const [items, setItems] = React.useState<Item[]>([]);
 	React.useEffect(() => {
-		const parsedItems = itemExamples.map((v, i) => {
+		const parsedItems = itemExamples.map((data, i) => {
 			return {
-				id: i,
-				src: v,
-				price: Math.round(Math.random() * 1000) + 500,
+				id: data.id,
+				src: data.src,
+				desc: data.desc,
+				price: data.price,
 			};
 		});
 		setItems(parsedItems);

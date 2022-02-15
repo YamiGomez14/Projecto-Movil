@@ -8,11 +8,12 @@ import {
 } from '@react-navigation/drawer';
 import { Avatar, IconButton, Drawer, List } from 'react-native-paper';
 import { Center } from 'native-base';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // import { createNativeStackNavigator as createDrawerNavigator  } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import Background from '../components/Background';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { CarritoScreen } from './CarritoScreen';
 
 function NotificationsScreen({ navigation }: any) {
 	return (
@@ -121,7 +122,7 @@ export default function IndexScreen() {
 						/>
 					),
 				}}
-				component={NotificationsScreen}
+				component={CarritoScreen}
 			/>
 		</DrawerController.Navigator>
 	);
