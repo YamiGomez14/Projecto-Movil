@@ -1,7 +1,7 @@
 import faker from '@faker-js/faker';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { Button, ScrollView, TextArea } from 'native-base';
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import {
 	DataTable,
@@ -10,6 +10,7 @@ import {
 	ThemeProvider,
 	DefaultTheme,
 } from 'react-native-paper';
+import ComprasContext from '../context/ComprasContext';
 import { Background } from '../components/Background';
 import AppTheme from '../theme';
 
@@ -17,18 +18,15 @@ import AppTheme from '../theme';
 interface Props extends DrawerScreenProps<any, any> {}
 
 export const LoginStyles = StyleSheet.create({});
-const compras = [...Array(60)].map((t, i) => ({
-	id: i,
-	producto: faker.commerce.product(),
-	precio: faker.commerce.price(),
-}));
-const total = compras.reduce((_total, compra) => _total + +compra.precio, 0);
 
 const theme: Partial<typeof DefaultTheme> = {
 	...AppTheme,
 	colors: { ...AppTheme.colors, text: 'black' },
 };
 export const CarritoScreen = ({ navigation }: Props) => {
+	const { data: compras } = useContext(ComprasContext);
+	const total = compras.reduce((_total, compra) => _total + +compra.price, 0);
+
 	return (
 		<View style={{ flex: 1 }}>
 			<ThemeProvider theme={theme as any}>
@@ -47,12 +45,12 @@ export const CarritoScreen = ({ navigation }: Props) => {
 							<DataTable.Row key={t.id}>
 								<DataTable.Cell>
 									<Text style={{ fontSize: 18 }}>
-										{t.producto}
+										{t.desc}
 									</Text>
 								</DataTable.Cell>
 								<DataTable.Cell numeric>
 									<Text style={{ fontSize: 18 }}>
-										{t.precio}
+										{t.price}
 									</Text>
 								</DataTable.Cell>
 							</DataTable.Row>

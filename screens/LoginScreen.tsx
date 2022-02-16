@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Center, Image } from 'native-base';
 import React from 'react';
 import {
 	Keyboard,
@@ -6,10 +7,10 @@ import {
 	StyleSheet,
 	Platform,
 	Text,
-	TextInput,
 	TouchableOpacity,
 	View,
 } from 'react-native';
+import { Avatar, TextInput } from 'react-native-paper';
 import { Background } from '../components/Background';
 import { useForm } from '../hooks/useForm';
 
@@ -39,7 +40,22 @@ export const LoginScreen = ({ navigation }: Props) => {
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			>
 				<View style={LoginStyles.formContainer}>
-					{/* <WhiteLogo/> */}
+					<Center
+						style={{
+							flex: 1,
+							justifyContent: 'center',
+							alignContent: 'center',
+						}}
+					>
+						<Image
+							style={{
+								width: 300,
+								height: 300,
+								borderRadius: 100000,
+							}}
+							source={require('../assets/images/logo.png')}
+						/>
+					</Center>
 					<Text style={LoginStyles.title}>Login</Text>
 
 					<Text style={LoginStyles.label}>Email:</Text>
@@ -49,16 +65,14 @@ export const LoginScreen = ({ navigation }: Props) => {
 						keyboardType="email-address"
 						underlineColorAndroid="white"
 						// To apply custom style for iOS
-						style={[
-							LoginStyles.inputField,
-							Platform.OS === 'ios' && LoginStyles.inputFieldIOS,
-						]}
+						style={{ color: 'white' }}
 						selectionColor="white"
 						onChangeText={value => onChange(value, 'email')}
 						value={email} // manejando como se cambia
 						onSubmitEditing={onLogin}
 						autoCapitalize="none"
 						autoCorrect={false}
+						autoComplete={false}
 					/>
 
 					<Text style={LoginStyles.label}>Password:</Text>
@@ -77,6 +91,7 @@ export const LoginScreen = ({ navigation }: Props) => {
 						onSubmitEditing={onLogin}
 						autoCapitalize="none"
 						autoCorrect={false}
+						autoComplete={false}
 					/>
 					{/* Bton login */}
 					<View style={LoginStyles.buttonContainer}>
@@ -132,7 +147,7 @@ export const LoginStyles = StyleSheet.create({
 	},
 	inputField: {
 		color: 'white',
-		fontSize: 20,
+		fontSize: 15,
 	},
 	inputFieldIOS: {
 		borderBottomColor: 'white',

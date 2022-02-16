@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import { View } from 'react-native';
 import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
@@ -10,21 +10,11 @@ import { Avatar, IconButton, Drawer, List } from 'react-native-paper';
 import { Center } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import HomeScreen from './HomeScreen';
+import HomeScreen, { Item } from './HomeScreen';
 import Background from '../components/Background';
 import { CarritoScreen } from './CarritoScreen';
+import ComprasContext from '../context/ComprasContext';
 
-
-
-function NotificationsScreen({ navigation }: any) {
-	return (
-		<View
-			style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-		>
-			<Button onPress={() => navigation.goBack()} title="Go back home" />
-		</View>
-	);
-}
 function DrawerContent(props: any) {
 	return (
 		<SafeAreaView
@@ -81,50 +71,65 @@ function DrawerContent(props: any) {
 const DrawerController = createDrawerNavigator();
 
 export default function IndexScreen() {
+	const [compras, setCompras] = React.useState<Item[]>([]);
+	const addCompra = React.useCallback(
+		(compra: Item) => {
+			setCompras(_compras => [..._compras, compra]);
+		},
+		[setCompras],
+	);
+
 	return (
-		<DrawerController.Navigator
-			initialRouteName="Principal"
-			drawerContent={props => <DrawerContent {...props} />}
-			screenOptions={{
-				headerRight: () => <IconButton icon="cart-outline" />,
-				drawerLabelStyle: {
-					fontWeight: 'bold',
-				},
+		<ComprasContext.Provider
+			value={{
+				addCompra,
+				data: compras,
 			}}
 		>
-			<DrawerController.Screen
-				name="Principal"
-				options={{
-					drawerIcon: ({ size }) => (
-						<List.Icon
-							icon="home"
-							style={{
-								width: size,
-								height: size,
-							}}
-						/>
-					),
-					headerStyle: {
-						// backgroundColor: 'red',
+			<DrawerController.Navigator
+				initialRouteName="Principal"
+				drawerContent={props => <DrawerContent {...props} />}
+				screenOptions={{
+					headerRight: () => <IconButton icon="cart-outline" />,
+					drawerLabelStyle: {
+						fontWeight: 'bold',
 					},
 				}}
-				component={HomeScreen}
-			/>
-			<DrawerController.Screen
-				name="Car"
-				options={{
-					drawerIcon: ({ size }) => (
-						<List.Icon
-							icon="cart-outline"
-							style={{
-								width: size,
-								height: size,
-							}}
-						/>
-					),
-				}}
-				component={CarritoScreen}
-			/>
-		</DrawerController.Navigator>
+			>
+				<DrawerController.Screen
+					name="Principal"
+					options={{
+						drawerIcon: ({ size }) => (
+							<List.Icon
+								icon="home"
+								style={{
+									width: size,
+									height: size,
+								}}
+							/>
+						),
+						headerStyle: {
+							// backgroundColor: 'red',
+						},
+					}}
+					component={HomeScreen}
+				/>
+				<DrawerController.Screen
+					name="Car"
+					options={{
+						drawerIcon: ({ size }) => (
+							<List.Icon
+								icon="cart-outline"
+								style={{
+									width: size,
+									height: size,
+								}}
+							/>
+						),
+					}}
+					component={CarritoScreen}
+				/>
+			</DrawerController.Navigator>
+		</ComprasContext.Provider>
 	);
 }

@@ -16,6 +16,7 @@ import { Button, Center, View } from 'native-base';
 
 import ProductScreen from './ProductDetail';
 import AppTheme from '../theme';
+import ComprasContext from '../context/ComprasContext';
 
 const styles = StyleSheet.create({
 	container: {
@@ -146,6 +147,7 @@ function CategoryButton({ name, image }: { name: string; image: string }) {
 }
 function ProductItemComponent({ item }: { item: Item }) {
 	const nav = useNavigation<Props['navigation']>();
+	const compras = React.useContext(ComprasContext);
 	return (
 		<TouchableOpacity
 			style={{
@@ -155,7 +157,6 @@ function ProductItemComponent({ item }: { item: Item }) {
 				nav.navigate('Product', {
 					id: item.id.toString(),
 				});
-				Alert.alert('card', `prueba${item.price}`);
 			}}
 		>
 			<Card>
@@ -167,7 +168,11 @@ function ProductItemComponent({ item }: { item: Item }) {
 				<Card.Divider />
 				<Card.Title>{item.desc}</Card.Title>
 				<Card.Title>Precio: {item.price}</Card.Title>
-				<Button>
+				<Button
+					onPress={() => {
+						compras.addCompra(item);
+					}}
+				>
 					<Paragraph
 						style={{
 							flex: 1,
