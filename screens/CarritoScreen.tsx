@@ -71,7 +71,7 @@ export const CarritoScreen = ({ navigation }: Props) => {
 						label={
 							<Text
 								style={{
-									fontSize: 24,
+									fontSize: 20,
 								}}
 							>
 								Especificaciones del pedido
@@ -84,7 +84,7 @@ export const CarritoScreen = ({ navigation }: Props) => {
 						}}
 					/>
 				</View>
-				<Button>Prueba</Button>
+				<Button>Realizar Pedido</Button>
 			</ThemeProvider>
 		</View>
 	);

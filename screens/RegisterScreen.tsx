@@ -58,11 +58,11 @@ export const RegisterScreen = ({ navigation }: Props) => {
 				{/* Keyboard avoid view */}
 				{/* <WhiteLogo /> */}
 
-				<Text style={LoginStyles.title}>New Account</Text>
+				<Text style={LoginStyles.title}>Nueva Cuenta</Text>
 
-				<Text style={LoginStyles.label}>Name:</Text>
+				<Text style={LoginStyles.label}>Nombre:</Text>
 				<TextInput
-					placeholder="Enter your name:"
+					placeholder="Ingrese su nombre:"
 					placeholderTextColor="rgba(255,255,255,0.4)"
 					underlineColorAndroid="white"
 					style={[
@@ -79,7 +79,7 @@ export const RegisterScreen = ({ navigation }: Props) => {
 
 				<Text style={LoginStyles.label}>Email:</Text>
 				<TextInput
-					placeholder="Enter your email:"
+					placeholder="Ingrese su email:"
 					placeholderTextColor="rgba(255,255,255,0.4)"
 					keyboardType="email-address"
 					underlineColorAndroid="white"
@@ -95,7 +95,7 @@ export const RegisterScreen = ({ navigation }: Props) => {
 					autoCorrect={false}
 				/>
 
-				<Text style={LoginStyles.label}>Password:</Text>
+				<Text style={LoginStyles.label}>Contraseña:</Text>
 				<TextInput
 					placeholder="**********"
 					placeholderTextColor="rgba(255,255,255,0.4)"
@@ -121,7 +121,7 @@ export const RegisterScreen = ({ navigation }: Props) => {
 						onPress={onRegister}
 					>
 						<Text style={LoginStyles.buttonText}>
-							Create New Account
+							Crear nueva Cuenta
 						</Text>
 					</TouchableOpacity>
 				</View>

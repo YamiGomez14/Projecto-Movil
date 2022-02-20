@@ -93,8 +93,7 @@ function ProductScreen({
 					${data.price}
 				</Text>
 				<Paragraph>
-					Biscocho dominicano. Pastel tipo Marmol cubierta de
-					buttercream de frambrueza y frutos rojos
+				${data.desc}
 				</Paragraph>
 				<Button background={AppTheme.colors.accent}>Add</Button>
 			</View>

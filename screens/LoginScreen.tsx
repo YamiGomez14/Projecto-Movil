@@ -11,6 +11,7 @@ import {
 	View,
 } from 'react-native';
 import { Avatar, TextInput } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Background } from '../components/Background';
 import { useForm } from '../hooks/useForm';
 
@@ -29,7 +30,7 @@ export const LoginScreen = ({ navigation }: Props) => {
 	};
 
 	return (
-		<>
+		<SafeAreaView style={{flex:1}}>
 			<Background />
 
 			{/* Keyboard avoid view , controlar el teclado no cambie la info */}
@@ -49,9 +50,10 @@ export const LoginScreen = ({ navigation }: Props) => {
 					>
 						<Image
 							style={{
-								width: 300,
-								height: 300,
+								width: 250,
+								height: 250,
 								borderRadius: 100000,
+								
 							}}
 							source={require('../assets/images/logo.png')}
 						/>
@@ -103,7 +105,7 @@ export const LoginScreen = ({ navigation }: Props) => {
 									navigation.replace('IndexScreen')
 							}
 						>
-							<Text style={LoginStyles.buttonText}>Login</Text>
+							<Text style={LoginStyles.buttonText}>Ingresar</Text>
 						</TouchableOpacity>
 					</View>
 
@@ -116,13 +118,14 @@ export const LoginScreen = ({ navigation }: Props) => {
 							onPress={() => navigation.replace('RegisterScreen')}
 						>
 							<Text style={LoginStyles.buttonText}>
-								New Account{' '}
+								Nueva Cuenta{' '}
 							</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
 			</KeyboardAvoidingView>
-		</>
+			
+		</SafeAreaView>
 	);
 };
 

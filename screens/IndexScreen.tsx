@@ -74,7 +74,10 @@ export default function IndexScreen() {
 	const [compras, setCompras] = React.useState<Item[]>([]);
 	const addCompra = React.useCallback(
 		(compra: Item) => {
-			setCompras(_compras => [..._compras, compra]);
+			setCompras(_compras => [..._compras,{
+				...compra, // sube tus cambios
+				id: _compras.length + 1
+			}]);
 		},
 		[setCompras],
 	);
