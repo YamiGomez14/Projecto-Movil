@@ -14,6 +14,7 @@ import { Avatar, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Background } from '../components/Background';
 import { useForm } from '../hooks/useForm';
+import supabase from '../libs/supabase';
 
 // Uso las props del Login para usar el Navigator
 interface Props extends NativeStackScreenProps<any, any> {}
@@ -24,8 +25,12 @@ export const LoginScreen = ({ navigation }: Props) => {
 		email: '',
 		password: '',
 	});
-	const onLogin = () => {
-		console.log({ email, password });
+	const onLogin = async () => {
+		const { data, error } = await supabase
+			.from('usuario')
+			.select()
+
+		console.log({data,error, email, password });
 		Keyboard.dismiss(); // ocultar el teclado
 	};
 
