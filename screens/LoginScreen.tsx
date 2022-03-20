@@ -9,6 +9,7 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
+	Alert,
 } from 'react-native';
 import { Avatar, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,12 +27,16 @@ export const LoginScreen = ({ navigation }: Props) => {
 		password: '',
 	});
 	const onLogin = async () => {
-		const { data, error } = await supabase
-			.from('usuario')
-			.select()
+			
+			const { data, error } = await supabase
+			.from('Usuario')
+			.select('*')
 
 		console.log({data,error, email, password });
+		Alert.alert("title",JSON.stringify({data,error},null,4))
 		Keyboard.dismiss(); // ocultar el teclado
+		navigation.replace('IndexScreen')
+		
 	};
 
 	return (
@@ -107,7 +112,7 @@ export const LoginScreen = ({ navigation }: Props) => {
 							style={LoginStyles.button}
 							onPress={
 								/* onLogin */ () =>
-									navigation.replace('IndexScreen')
+									onLogin()
 							}
 						>
 							<Text style={LoginStyles.buttonText}>Ingresar</Text>
