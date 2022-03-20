@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:Narizdecerdito1430@db.fvpehbakvabuhpymovni.supabase.co:5432/postgres?schema=public"
+}
+
+model Articulo {
+  id             Int              @id @default(autoincrement())
+  name           String
+  description    String
+  image          String
+  price          Float
+  id_categoria   Int
+  Categoria      Categoria        @relation(fields: [id_categoria], references: [id])
+  ItemCarrito ItemCarrito[]
+  DetallePedido  DetallePedido[]
+}
+
+model ItemCarrito {
+  id             Int              @id @default(autoincrement())
+  id_usuario     Int
+  cantidad    Int
+  id_articulo Int
+  Articulo    Articulo @relation(fields: [id_articulo], references: [id])
+
+  Usuario        Usuario          @relation(fields: [id_usuario], references: [id])
+  @@unique ([id_usuario, id_articulo])
+}
+
+model Categoria {
+  id       Int        @id @default(autoincrement())
+  name     String
+  image    String
+  Articulo Articulo[]
+}
+
+
+model DetallePedido {
+  id          Int      @id @default(autoincrement())
+  cantidad    Int
+  precio      Float
+  id_articulo Int
+  id_pedido   Int
+  Articulo    Articulo @relation(fields: [id_articulo], references: [id])
+  Pedido      Pedido   @relation(fields: [id_pedido], references: [id])
+}
+
+model Pedido {
+  id            Int             @id @default(autoincrement())
+  fec_pedido    DateTime
+  nota          String
+  id_usuario    Int
+  estado        Boolean?
+  Usuario       Usuario         @relation(fields: [id_usuario], references: [id])
+  DetallePedido DetallePedido[]
+}
+
+model Usuario {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String
+  password String
+  notaCarrito String?
+  ItemCarrito  ItemCarrito[]
+  Pedido   Pedido[]
+}

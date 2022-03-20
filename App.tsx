@@ -14,7 +14,9 @@ import { Button, ThemeProvider } from 'react-native-elements';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import AppTheme from './theme';
+const queryClient = new QueryClient()
 
 const NativeBaseTheme: Partial<NativeThemeType['colors']> = {
 	primary: {
@@ -65,15 +67,17 @@ export default function App() {
 		return null;
 	}
 	return (
-		<SafeAreaProvider>
-			<ThemeProvider theme={AppTheme.colors}>
-				<NativeBaseProvider theme={nativeTheme}>
-					<PaperProvider theme={AppTheme}>
-						<Navigation />
-						<StatusBar />
-					</PaperProvider>
-				</NativeBaseProvider>
-			</ThemeProvider>
-		</SafeAreaProvider>
+		<QueryClientProvider client={queryClient}>
+			<SafeAreaProvider>
+				<ThemeProvider theme={AppTheme.colors}>
+					<NativeBaseProvider theme={nativeTheme}>
+						<PaperProvider theme={AppTheme}>
+							<Navigation />
+							<StatusBar />
+						</PaperProvider>
+					</NativeBaseProvider>
+				</ThemeProvider>
+			</SafeAreaProvider>
+		</QueryClientProvider>
 	);
 }
