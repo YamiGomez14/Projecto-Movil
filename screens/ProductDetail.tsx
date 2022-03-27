@@ -36,10 +36,8 @@ function ProductScreen({
     if (error) {
       throw error;
     }
-    console.log("mutate", { data, error, others });
     return data;
   });
-  console.log(data);
   if (isLoading || !data)
     return (
       <View style={{ flex: 1 }}>
